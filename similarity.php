@@ -24,6 +24,7 @@ function euc_similar($nameA, $nameB) {
     return 1 / 1 + sqrt($dist);
 }
 
+// which customers are the most similar
 $similarityMatrix = [];
 foreach ($dataset as $name => $purchases) {
 
@@ -36,6 +37,10 @@ foreach ($dataset as $name => $purchases) {
 
     }
 
+}
+
+foreach ($similarityMatrix as $item) {
+    arsort($item);
 }
 
 var_dump($similarityMatrix);
