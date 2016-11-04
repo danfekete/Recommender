@@ -13,13 +13,14 @@ foreach ($result as $item) {
     $dataset[$item['name']][] = $item['product_id'];
 }
 
+r($dataset);
+
 function get($name, $id) {
     global $dataset;
     if (in_array($id, $dataset[$name])) return 1;
     return 0;
 }
 
-//~r($dataset);
 
 function euc_similar($nameA, $nameB) {
     global $dataset;
@@ -41,7 +42,7 @@ function recommendations($name) {
         else $similarItems = array_intersect($similarItems, $dataset[$key]);
     }
 
-    return $similarItems;
+    return array_unique($similarItems);
 }
 
 // which customers are the most similar
