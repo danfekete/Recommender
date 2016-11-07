@@ -13,8 +13,7 @@ use danfekete\Recommender\Contracts\DataSet;
 use danfekete\Recommender\Contracts\Item;
 use danfekete\Recommender\Contracts\ItemList;
 use danfekete\Recommender\Contracts\SimilarityEngine;
-use danfekete\Recommender\Contracts\SimilaritySet;
-use danfekete\Recommender\Models\SimiliaritySet;
+use danfekete\Recommender\Models\SimilaritySet;
 
 class JaccardEngine implements SimilarityEngine
 {
@@ -60,7 +59,7 @@ class JaccardEngine implements SimilarityEngine
         $others = $this->dataSet->getAvailableUsers($user);
 
         // TODO: make it configurable
-        $similar = new SimiliaritySet();
+        $similar = new SimilaritySet();
 
         foreach ($others as $other) {
             $otherPurchaseList = $this->dataSet->getUserPurchases($other)->all();
