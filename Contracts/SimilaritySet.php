@@ -12,9 +12,16 @@ namespace danfekete\Recommender\Contracts;
 interface SimilaritySet
 {
     /**
-     * Return the similarity score for a given user
-     * @param $user
+     * Return the similarity score for a given ID
+     * @param $keyID
      * @return double
      */
-    public function getSimilarityIndex($user);
+    public function getSimilarityIndex($keyID);
+
+    /**
+     * Add a similarity to the given ID
+     * @param $keyID
+     * @param $similarity
+     */
+    public function add($keyID, $similarity);
 }

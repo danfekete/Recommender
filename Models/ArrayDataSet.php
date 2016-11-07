@@ -23,4 +23,14 @@ class ArrayDataSet extends \ArrayObject implements DataSetContract
     {
         return $this->offsetGet($user);
     }
+
+    /**
+     * Return a list of available users
+     * @param null|string|array $exclude one ore more users to exclude from the list
+     * @return array
+     */
+    public function getAvailableUsers($exclude=null)
+    {
+        return [];
+    }
 }

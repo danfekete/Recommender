@@ -17,4 +17,11 @@ interface DataSet
      * @return ItemList
      */
     public function getUserPurchases($user);
+
+    /**
+     * Return a list of available users
+     * @param null|string|array $exclude one ore more users to exclude from the list
+     * @return array
+     */
+    public function getAvailableUsers($exclude=null);
 }
