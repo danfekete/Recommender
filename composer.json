@@ -12,5 +12,10 @@
   "require": {
     "digitalnature/php-ref": "dev-master",
     "league/csv": "8.1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "danfekete\\": "src"
+    }
   }
 }
