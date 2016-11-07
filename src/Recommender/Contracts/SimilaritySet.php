@@ -20,8 +20,7 @@ interface SimilaritySet
 
     /**
      * Add a similarity to the given ID
-     * @param $keyID
-     * @param $similarity
+     * @param SimilarityItem $item
      */
-    public function add($keyID, $similarity);
+    public function add(SimilarityItem $item);
 }
