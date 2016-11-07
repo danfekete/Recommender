@@ -11,5 +11,9 @@ namespace danfekete\Recommender\Contracts;
 
 interface Item
 {
-
+    /**
+     * Return the Item's ID
+     * @return integer
+     */
+    public function getId();
 }
