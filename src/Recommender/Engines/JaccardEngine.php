@@ -9,12 +9,8 @@
 namespace danfekete\Recommender\Engines;
 
 
-use danfekete\Recommender\Contracts\DataSet;
 use danfekete\Recommender\Contracts\Item;
 use danfekete\Recommender\Contracts\ItemList;
-use danfekete\Recommender\Contracts\SimilarityEngine;
-use danfekete\Recommender\Models\SimilarityItem;
-use danfekete\Recommender\Models\SimilaritySet;
 
 class JaccardEngine extends AbstractEngine
 {
