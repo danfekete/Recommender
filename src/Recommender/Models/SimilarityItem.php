@@ -11,7 +11,7 @@ namespace danfekete\Recommender\Models;
 
 use danfekete\Recommender\Contracts\SimilarityItem as SimilarityItemContract;
 
-class SimilarityItem implements SimilarityItemContract
+class SimilarityItem implements SimilarityItemContract, \JsonSerializable
 {
     /**
      * @var
@@ -48,5 +48,17 @@ class SimilarityItem implements SimilarityItemContract
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     */
+    function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'value' => $this->value
+        ];
     }
 }
