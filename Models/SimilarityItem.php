@@ -1,0 +1,52 @@
+<?php
+/**
+ * Copyright (c) 2016, VOOV LLC.
+ * All rights reserved.
+ * Written by Daniel Fekete
+ * daniel.fekete@voov.hu
+ */
+
+namespace danfekete\Recommender\Models;
+
+
+use danfekete\Recommender\Contracts\SimilarityItem as SimilarityItemContract;
+
+class SimilarityItem implements SimilarityItemContract
+{
+    /**
+     * @var
+     */
+    private $id;
+    /**
+     * @var
+     */
+    private $value;
+
+    /**
+     * SimilarityItem constructor.
+     */
+    public function __construct($id, $value)
+    {
+        $this->id = $id;
+        $this->value = $value;
+    }
+
+
+    /**
+     * Return the ID for the item
+     * @return mixed
+     */
+    public function getID()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Return the similarity index for the given ID
+     * @return double
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+}

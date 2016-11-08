@@ -12,16 +12,17 @@ namespace danfekete\Recommender\Contracts;
 interface DataSet
 {
     /**
-     * Get the purchases made by a given user
-     * @param $user
+     * Get itemlist for a given key, for example:
+     * get the purchases made by a given user
+     * @param $key
      * @return ItemList
      */
-    public function getUserPurchases($user);
+    public function getListForKey($key);
 
     /**
-     * Return a list of available users
-     * @param null|string|array $exclude one ore more users to exclude from the list
+     * Return a list of available keys (for example users)
+     * @param null|string|array $exclude one ore more keys to exclude from the list
      * @return array
      */
-    public function getAvailableUsers($exclude=null);
+    public function getAvailableKeys($exclude=null);
 }
