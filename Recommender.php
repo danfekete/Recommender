@@ -11,6 +11,7 @@ namespace danfekete\Recommender;
 
 use danfekete\Recommender\Contracts\DataSet;
 use danfekete\Recommender\Contracts\SimilarityEngine;
+use danfekete\Recommender\Contracts\SimilaritySet;
 
 class Recommender
 {
@@ -32,5 +33,31 @@ class Recommender
         $this->dataSet = $dataSet;
 
         $this->engine->setDataset($dataSet);
+    }
+
+
+    /**
+     * Get similarity set for one key
+     * @param $key
+     * @return Models\SimilaritySet
+     */
+    public function getOne($key)
+    {
+        return $this->engine->getSimilar($key);
+    }
+
+    /**
+     * Get every similarity for every item
+     * @return array|SimilaritySet[]
+     */
+    public function getAll()
+    {
+        $similarityMatrix = [];
+        $allKeys = $this->engine->getDataset()->getAvailableKeys();
+        foreach ($allKeys as $key) {
+            $similarityMatrix[$key] = $allKeys;
+        }
+
+        return $similarityMatrix;
     }
 }
