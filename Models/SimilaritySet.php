@@ -12,70 +12,13 @@ namespace danfekete\Recommender\Models;
 use danfekete\Recommender\Contracts\SimilarityItem;
 use danfekete\Recommender\Contracts\SimilaritySet as SimilaritySetContract;
 
-class SimilaritySet implements SimilaritySetContract, \Iterator
+class SimilaritySet implements SimilaritySetContract
 {
-    /** @var SimilarityItem $root  */
-    private $root;
-    /** @var SimilarityItem $current */
-    private $current;
-    /** @var SimilarityItem $next */
-    private $next;
 
     /**
-     * Return the current element
-     * @link http://php.net/manual/en/iterator.current.php
-     * @return mixed Can return any type.
-     * @since 5.0.0
+     * @var array|SimilarityItem[]
      */
-    public function current()
-    {
-        return $this->current;
-    }
-
-    /**
-     * Move forward to next element
-     * @link http://php.net/manual/en/iterator.next.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
-     */
-    public function next()
-    {
-        $this->current = $this->next;
-    }
-
-    /**
-     * Return the key of the current element
-     * @link http://php.net/manual/en/iterator.key.php
-     * @return mixed scalar on success, or null on failure.
-     * @since 5.0.0
-     */
-    public function key()
-    {
-        return $this->current->getID();
-    }
-
-    /**
-     * Checks if current position is valid
-     * @link http://php.net/manual/en/iterator.valid.php
-     * @return boolean The return value will be casted to boolean and then evaluated.
-     * Returns true on success or false on failure.
-     * @since 5.0.0
-     */
-    public function valid()
-    {
-        return $this->current != null;
-    }
-
-    /**
-     * Rewind the Iterator to the first element
-     * @link http://php.net/manual/en/iterator.rewind.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
-     */
-    public function rewind()
-    {
-        $this->current = $this->root;
-    }
+    private $list = [];
 
     /**
      * Return the similarity score for a given ID
@@ -84,7 +27,20 @@ class SimilaritySet implements SimilaritySetContract, \Iterator
      */
     public function getSimilarityIndex($keyID)
     {
-        // TODO: Implement getSimilarityIndex() method.
+        foreach ($this->list as $item) {
+            if($item->getID() == $keyID) return $item->getValue();
+        }
+
+        return 0;
+    }
+
+    /**
+     * Return the whole set sorted
+     * @return array
+     */
+    public function all()
+    {
+        return $this->list;
     }
 
     /**
@@ -93,6 +49,11 @@ class SimilaritySet implements SimilaritySetContract, \Iterator
      */
     public function add(SimilarityItem $item)
     {
-        if ($this->root == null) $this->root = $item;
+        $this->list[] = $item;
+        usort($this->list, function($a, $b) {
+
+            if($a->getValue() == $b->getValue()) return 0;
+            return $a->getValue() < $b->getValue() ? -1 : 1;
+        });
     }
 }
