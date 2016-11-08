@@ -11,6 +11,7 @@ namespace danfekete\Recommender\Engines;
 
 use danfekete\Recommender\Contracts\DataSet;
 use danfekete\Recommender\Contracts\Item;
+use danfekete\Recommender\Contracts\ItemList;
 use danfekete\Recommender\Contracts\SimilarityEngine;
 use danfekete\Recommender\Models\SimilarityItem;
 use danfekete\Recommender\Models\SimilaritySet;
@@ -21,6 +22,14 @@ abstract class AbstractEngine implements SimilarityEngine
      * @var DataSet
      */
     protected $dataSet;
+
+    /**
+     * Calculate the similarity between two lists
+     * @param ItemList $a
+     * @param ItemList $b
+     * @return double
+     */
+    abstract function calculateSimilarity($a, $b);
 
     /**
      * Set the dataset to use for the similarity calculation
@@ -40,33 +49,24 @@ abstract class AbstractEngine implements SimilarityEngine
     }
 
     /**
-     * Get a similarity set filtered to similar users to a given user
-     * @param $user
+     * Get a similarity set filtered to similar keys to a given key
+     * @param $key
      * @return SimilaritySet
      */
-    public function getSimilarUsers($user)
+    public function getSimilar($key)
     {
         // Uses the Jaccard similarity coefficient
-        $currentPurchaseList = $this->dataSet->getListForKey($user)->all();
-        $others = $this->dataSet->getAvailableKeys($user);
+        $currentKeyList = $this->dataSet->getListForKey($key);
+        $othersKeys = $this->dataSet->getAvailableKeys($key);
 
         // TODO: make it configurable
         $similar = new SimilaritySet();
 
-        foreach ($others as $other) {
-            $otherPurchaseList = $this->dataSet->getListForKey($other)->all();
-            $combined = count(array_merge($currentPurchaseList, $otherPurchaseList));
-            if ($combined == 0) continue;
-            $intersection = array_uintersect($currentPurchaseList, $otherPurchaseList, function ($a, $b) {
-                /** @var Item $a */
-                /** @var Item $b */
-                if ($a->getId() == $b->getId()) return 0;
-                return $a->getId() < $b->getId() ? -1 : 1;
-            });
+        foreach ($othersKeys as $otherKey) {
+            $otherKeyList = $this->dataSet->getListForKey($otherKey);
 
-            $intersectionCount = count($intersection);
-            $jaccIndex = $intersectionCount / ($combined - $intersectionCount);
-            $similar->add(new SimilarityItem($other, $jaccIndex));
+            $similarityScore = $this->calculateSimilarity($currentKeyList, $otherKeyList);
+            $similar->add(new SimilarityItem($otherKey, $similarityScore));
         }
 
         return $similar;

@@ -24,14 +24,26 @@ class JaccardEngine extends AbstractEngine
 
     }
 
-
     /**
-     * Get similar items to the given item
-     * @param Item $item
-     * @return ItemList
+     * Calculate the similarity between two lists
+     * @param ItemList $a
+     * @param ItemList $b
+     * @return double
      */
-    public function getSimilarItems(Item $item)
+    function calculateSimilarity($a, $b)
     {
-        // TODO: Implement getSimilarItems() method.
+        $currentKeyList = $a->all();
+        $otherKeyList = $b->all();
+        $combined = count(array_merge($currentKeyList, $otherKeyList));
+        if ($combined == 0) return 0;
+        $intersection = array_uintersect($currentKeyList, $otherKeyList, function ($a, $b) {
+            /** @var Item $a */
+            /** @var Item $b */
+            if ($a->getId() == $b->getId()) return 0;
+            return $a->getId() < $b->getId() ? -1 : 1;
+        });
+
+        $intersectionCount = count($intersection);
+        return $intersectionCount / ($combined - $intersectionCount);
     }
 }
