@@ -9,16 +9,26 @@
 namespace danfekete\Recommender\Models;
 
 
-use danfekete\Recommender\Contracts\SimilarityItem;
+use danfekete\Recommender\Contracts\SimilarityItem as SimilarityItemContract;
 use danfekete\Recommender\Contracts\SimilaritySet as SimilaritySetContract;
 
 class SimilaritySet implements SimilaritySetContract
 {
 
     /**
-     * @var array|SimilarityItem[]
+     * @var array|SimilarityItemContract[]
      */
     private $list = [];
+
+    /**
+     * SimilaritySet constructor.
+     * @param array|SimilarityItemContract[] $list
+     */
+    public function __construct($list=[])
+    {
+        $this->list = $list;
+    }
+
 
     /**
      * Return the similarity score for a given ID
@@ -56,9 +66,9 @@ class SimilaritySet implements SimilaritySetContract
 
     /**
      * Add a similarity to the given ID
-     * @param SimilarityItem $item
+     * @param SimilarityItemContract $item
      */
-    public function add(SimilarityItem $item)
+    public function add(SimilarityItemContract $item)
     {
         $this->list[] = $item;
         usort($this->list, function($a, $b) {

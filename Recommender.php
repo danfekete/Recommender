@@ -47,7 +47,7 @@ class Recommender
     /**
      * @return SimilarityEngine
      */
-    public function getEngine(): SimilarityEngine
+    public function getEngine()
     {
         return $this->engine;
     }
@@ -56,7 +56,7 @@ class Recommender
      * @param SimilarityEngine $engine
      * @return Recommender
      */
-    public function setEngine(SimilarityEngine $engine): Recommender
+    public function setEngine(SimilarityEngine $engine)
     {
         $this->engine = $engine;
         return $this;
@@ -65,7 +65,7 @@ class Recommender
     /**
      * @return DataSet
      */
-    public function getDataSet(): DataSet
+    public function getDataSet()
     {
         return $this->dataSet;
     }
@@ -74,7 +74,7 @@ class Recommender
      * @param DataSet $dataSet
      * @return Recommender
      */
-    public function setDataSet(DataSet $dataSet): Recommender
+    public function setDataSet(DataSet $dataSet)
     {
         $this->dataSet = $dataSet;
         return $this;
