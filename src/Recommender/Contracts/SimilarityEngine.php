@@ -9,6 +9,9 @@
 namespace danfekete\Recommender\Contracts;
 
 
+use danfekete\Recommender\Models\SimilarityItem;
+use danfekete\Recommender\Models\SimilaritySet;
+
 interface SimilarityEngine
 {
 
@@ -23,17 +26,19 @@ interface SimilarityEngine
      */
     public function getDataset();
 
-    /**
-     * Get a similarity set filtered to similar users to a given user
-     * @param $user
-     * @return SimilaritySet
-     */
-    public function getSimilarUsers($user);
 
     /**
-     * Get similar items to the given item
-     * @param Item $item
-     * @return ItemList
+     * Calculate the similarity between two lists
+     * @param ItemList $a
+     * @param ItemList $b
+     * @return double
      */
-    public function getSimilarItems(Item $item);
+    function calculateSimilarity($a, $b);
+
+    /**
+     * Get a similarity set filtered to similar keys to a given key
+     * @param $key
+     * @return SimilaritySet
+     */
+    public function getSimilar($key);
 }
