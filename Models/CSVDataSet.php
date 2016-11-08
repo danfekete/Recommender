@@ -15,6 +15,9 @@ use League\Csv\Reader;
 
 class CSVDataSet implements DataSet
 {
+    /**
+     * @var array|ArrayItemList[]
+     */
     protected $data = [];
 
     /**
@@ -31,8 +34,8 @@ class CSVDataSet implements DataSet
         foreach ($reader->fetch() as $row) {
             if(count($row) < 2) continue;
             list($key, $value) = array_values($row);
-            if(!isset($this->data[$key])) $this->data[$key] = [];
-            $this->data[$key][] = $value;
+            if(!isset($this->data[$key])) $this->data[$key] = new ArrayItemList();
+            $this->data[$key]->append(new SimpleItem($value));
         }
 
     }
