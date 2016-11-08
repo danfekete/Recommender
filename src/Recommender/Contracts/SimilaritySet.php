@@ -23,4 +23,17 @@ interface SimilaritySet
      * @param SimilarityItem $item
      */
     public function add(SimilarityItem $item);
+
+    /**
+     * Return the whole set sorted
+     * @return array
+     */
+    public function all();
+
+    /**
+     * Get top N elem
+     * @param int $n
+     * @return array
+     */
+    public function top($n = 3);
 }

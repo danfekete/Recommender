@@ -16,12 +16,12 @@ class ArrayDataSet extends \ArrayObject implements DataSetContract
 {
     /**
      * Get the purchases made by a given user
-     * @param $user
+     * @param $key
      * @return ItemList
      */
-    public function getUserPurchases($user)
+    public function getListForKey($key)
     {
-        return $this->offsetGet($user);
+        return $this->offsetGet($key);
     }
 
     /**
@@ -29,7 +29,7 @@ class ArrayDataSet extends \ArrayObject implements DataSetContract
      * @param null|string|array $exclude one ore more users to exclude from the list
      * @return array
      */
-    public function getAvailableUsers($exclude=null)
+    public function getAvailableKeys($exclude=null)
     {
         return [];
     }

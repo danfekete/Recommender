@@ -43,6 +43,17 @@ class SimilaritySet implements SimilaritySetContract
         return $this->list;
     }
 
+
+    /**
+     * Get top N elem
+     * @param int $n
+     * @return array
+     */
+    public function top($n = 3)
+    {
+        return array_slice($this->list, 0, $n);
+    }
+
     /**
      * Add a similarity to the given ID
      * @param SimilarityItem $item
