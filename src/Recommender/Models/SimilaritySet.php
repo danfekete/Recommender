@@ -64,7 +64,7 @@ class SimilaritySet implements SimilaritySetContract
         usort($this->list, function($a, $b) {
 
             if($a->getValue() == $b->getValue()) return 0;
-            return $a->getValue() < $b->getValue() ? -1 : 1;
+            return $a->getValue() < $b->getValue() ? 1 : -1;
         });
     }
 }
