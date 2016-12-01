@@ -1,0 +1,21 @@
+{
+  "name": "danfekete/Recommender",
+  "description": "Plugable and scalable recommendation engine",
+  "minimum-stability": "dev",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Fekete",
+      "email": "hello@danfekete.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "league/csv": "8.1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "danfekete\\Recommender\\": "src"
+    }
+  }
+}
